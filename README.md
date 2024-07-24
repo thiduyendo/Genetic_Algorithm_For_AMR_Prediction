@@ -32,3 +32,37 @@ python main.py --input_folder /path/to/input --output_folder /path/to/output
 - output_folder: the result of the model performance
 ### Contributing
 Contributions are welcome! Please follow the guidelines for submitting pull requests and ensure that all tests pass before submitting.
+#### Fork the Repository:
+Click the "Fork" button at the top right of this repository page on GitHub. This creates a copy of the repository under your own GitHub account.
+#### Clone Your Fork:
+- Open your terminal or command prompt.
+- Clone the forked repository to your local machine:
+```
+git clone https://github.com/your-username/your-forked-repository.git
+```
+#### Navigate to the project directory:
+```
+cd your-forked-repository
+```
+#### Create a New Branch:
+It’s best practice to create a new branch for each feature or bug fix
+```
+git checkout -b my-new-feature
+```
+#### Make Changes
+#### Commit Your Changes:
+Add the changes to the staging area:
+```
+git add .
+git commit -m "Add a feature or fix a bug"
+```
+#### Push to the Branch:
+```
+git commit -m "Add a feature or fix a bug"
+```
+#### Create a Pull Request:
+- Go to the original repository on GitHub.
+- Click on "New Pull Request."
+- Select the branch you pushed to and compare it with the main branch of the original repository.
+- Provide a clear description of your changes and submit the pull request.
+
