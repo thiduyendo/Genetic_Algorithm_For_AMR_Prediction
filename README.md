@@ -15,13 +15,19 @@ This project leverages genetic algorithms (GAs) to select the most important fea
 - Output Data: CSV files containing the results of the genetic algorithm, including performance metrics for each antibiotic.
 ## Getting Started
 ### Clone the Repository:
+```
 git clone https://github.com/thiduyendo/Genetic_Algorithm_For_AMR_Prediction.git
+```
 ### Install Dependencies:
 Ensure that you have all necessary Python libraries listed in requirement.txt installed: 
+```
 pip install -r requirements.txt
+```
 ### Run the Project:
 Execute main.py to start the genetic algorithm process and generate results:
+```
 python main.py --input_folder /path/to/input --output_folder /path/to/output
+```
 - input_folder: ensure to locate the trainGA_Tobramycin.csv and trainGA_ceftazidime.csv into this folder
 - output_folder: the result of the model performance
 ### Contributing
