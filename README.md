@@ -15,7 +15,7 @@ This project leverages genetic algorithms (GAs) to select the most important fea
 - Output Data: CSV files containing the results of the genetic algorithm, including performance metrics for each antibiotic.
 ## Getting Started
 ### Clone the Repository:
-git clone https://github.com/USERNAME/REPO_NAME.git
+git clone https://github.com/thiduyendo/Genetic_Algorithm_For_AMR_Prediction.git
 ### Install Dependencies:
 Ensure that you have all necessary Python libraries listed in requirement.txt installed. 
 ### Run the Project:
