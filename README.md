@@ -21,6 +21,8 @@ Ensure that you have all necessary Python libraries listed in requirement.txt in
 pip install -r requirements.txt
 ### Run the Project:
 Execute main.py to start the genetic algorithm process and generate results:
-python main.py
+python main.py --input_folder /path/to/input --output_folder /path/to/output
+- input_folder: ensure to locate the trainGA_Tobramycin.csv and trainGA_ceftazidime.csv into this folder
+- output_folder: the result of the model performance
 ### Contributing
 Contributions are welcome! Please follow the guidelines for submitting pull requests and ensure that all tests pass before submitting.
