@@ -17,8 +17,10 @@ This project leverages genetic algorithms (GAs) to select the most important fea
 ### Clone the Repository:
 git clone https://github.com/thiduyendo/Genetic_Algorithm_For_AMR_Prediction.git
 ### Install Dependencies:
-Ensure that you have all necessary Python libraries listed in requirement.txt installed. 
+Ensure that you have all necessary Python libraries listed in requirement.txt installed: 
+pip install -r requirements.txt
 ### Run the Project:
-Execute main.py to start the genetic algorithm process and generate results.
+Execute main.py to start the genetic algorithm process and generate results:
+python main.py
 ### Contributing
 Contributions are welcome! Please follow the guidelines for submitting pull requests and ensure that all tests pass before submitting.
