@@ -1,6 +1,6 @@
 # Genetic_Algorithm_For_AMR_Prediction
-<p style="display: inline-block; padding: 0.2em 0.5em; background-color: #e1e4e8; border-radius: 3px;">
-  <strong>Author</strong> <span style="background-color: #0366d6; color: white; padding: 0.1em 0.3em; border-radius: 3px;">@ThiDuyenDo</span>
+<p style="display: inline-block; padding: 0.2em 0.5em; background-color: #f0f0f0; border-radius: 3px;">
+  <strong>Author</strong> <span style="background-color: #ff6347; color: white; padding: 0.1em 0.3em; border-radius: 3px;">@ThiDuyenDo</span>
 </p>
 
 ## Project Overview
