@@ -1,8 +1,4 @@
 # Genetic_Algorithm_For_AMR_Prediction
-<p style="display: inline-block; padding: 0.25em 0.55em; background-color: #f8f9fa; border-radius: 3px;">
-  <strong>Author</strong> <span style="background-color: #c5f015; color: green; padding: 0.1em 0.3em; border-radius: 3px;">@ThiDuyenDo</span>
-</p>
-
 ## Project Overview
 This project leverages genetic algorithms (GAs) to select the most important features for predicting antibiotic resistance in Pseudomonas aeruginosa. By combining advanced machine learning techniques with evolutionary algorithms, this project aims to enhance the accuracy and effectiveness of resistance predictions, potentially leading to more effective treatments and interventions.
 ## Key Features
@@ -70,4 +66,5 @@ git commit -m "Add a feature or fix a bug"
 - Click on "New Pull Request."
 - Select the branch you pushed to and compare it with the main branch of the original repository.
 - Provide a clear description of your changes and submit the pull request.
-
+### Contact:
+Please don't hesitate to write me an email if you have any questions: [dtduyen1990@gmail.com](dtduyen1990@gmail.com)
