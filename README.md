@@ -55,11 +55,11 @@ git checkout -b my-new-feature
 Add the changes to the staging area:
 ```
 git add .
-git commit -m "Add a feature or fix a bug"
+git commit -m "Add a feature"
 ```
 #### Push to the Branch:
 ```
-git commit -m "Add a feature or fix a bug"
+git push origin feature-branch
 ```
 #### Create a Pull Request:
 - Go to the original repository on GitHub.
