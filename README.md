@@ -1,7 +1,8 @@
 # Genetic_Algorithm_For_AMR_Prediction
-<div style="display: inline-block; padding: 0.2em 0.5em; background-color: #e1e4e8; border-radius: 3px;">
+<p style="display: inline-block; padding: 0.2em 0.5em; background-color: #e1e4e8; border-radius: 3px;">
   <strong>Author</strong> <span style="background-color: #0366d6; color: white; padding: 0.1em 0.3em; border-radius: 3px;">@ThiDuyenDo</span>
-</div>
+</p>
+
 ## Project Overview
 This project leverages genetic algorithms (GAs) to select the most important features for predicting antibiotic resistance in Pseudomonas aeruginosa. By combining advanced machine learning techniques with evolutionary algorithms, this project aims to enhance the accuracy and effectiveness of resistance predictions, potentially leading to more effective treatments and interventions.
 ## Key Features
