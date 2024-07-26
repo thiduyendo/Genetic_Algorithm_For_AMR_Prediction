@@ -1,3 +1,6 @@
+header:
+  - text: |
+      <span style="font-size: 1.2em; font-weight: bold;">Applying for: Cooking Engineer</span>
 # Genetic_Algorithm_For_AMR_Prediction
 ## Project Overview
 This project leverages genetic algorithms (GAs) to select the most important features for predicting antibiotic resistance in *Pseudomonas aeruginosa*. By combining advanced machine learning techniques with evolutionary algorithms, this project aims to enhance the accuracy and effectiveness of resistance predictions, potentially leading to more effective treatments and interventions.
