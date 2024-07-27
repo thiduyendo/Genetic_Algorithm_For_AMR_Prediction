@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from sklearn.svm import SVC
-from src.Genetic_Algorithm import generations
+from Genetic_Algorithm import generations
 import argparse
 
 def process_data(input_file, output_file):

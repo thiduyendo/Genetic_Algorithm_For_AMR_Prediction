@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.model_selection import StratifiedKFold, cross_val_predict, ShuffleSplit
 from sklearn.svm import SVC
 from xgboost import XGBClassifier
-from src.Training import train_test
+from Training import train_test
 
 def initialization_of_population(size, n_feat):
 	"""
