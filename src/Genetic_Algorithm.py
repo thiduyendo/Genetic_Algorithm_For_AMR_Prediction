@@ -57,7 +57,7 @@ def fitness_score(population, model, kfold, X, y):
 	list(np.array(f1_list)[sorted_indices]),	
 	list(np.array(auc_list)[sorted_indices]),
 	list(np.array(mcc_list)[sorted_indices]),
-	weights)
+	weights[sorted_indices])
 
 def selection(pop_after_fit, weights, k):
 	"""
