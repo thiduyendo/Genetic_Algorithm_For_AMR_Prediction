@@ -33,7 +33,7 @@ pip install -r requirement.txt
 ### Run the Project:
 Execute main.py to start the genetic algorithm process and generate results:
 ```
-cd src/
+cd Genetic_Algorithm_For_AMR_Prediction/src/
 python main.py --input_file path/to/input.csv --output_file path/to/output.csv
 ```
 > **Note:**
