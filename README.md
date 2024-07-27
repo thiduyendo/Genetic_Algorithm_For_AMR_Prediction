@@ -28,7 +28,7 @@ git clone https://github.com/thiduyendo/Genetic_Algorithm_For_AMR_Prediction.git
 ### Install Dependencies:
 Ensure that you have all necessary Python libraries listed in requirement.txt installed: 
 ```
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 ### Run the Project:
 Execute main.py to start the genetic algorithm process and generate results:
