@@ -8,7 +8,8 @@ This project leverages genetic algorithms (GAs) to select the most important fea
 - Performance Metrics: Measures model performance using accuracy, precision, recall, F1 score, AUC (Area Under the Curve), and MCC (Matthews Correlation Coefficient).
 ## Project Components
 .
-├── README.md
+```├── README.md
+```
 ├── .gitignore
 ├── requirement.txt
 └── src
@@ -17,18 +18,6 @@ This project leverages genetic algorithms (GAs) to select the most important fea
     └── Training.py
 ├── data
 │   └── trainGA.csv
-
-## Description
-
-- **README.md**: This file.
-- **.gitignore**: Specifies files and directories to be ignored by Git.
-- **requirement.txt**: List of Python package dependencies.
-- **src/**: Contains the source code for the project.
-  - **Genetic_Algorithm.py**: Implements the genetic algorithm for feature selection and model optimization.
-  - **main.py**: Runs the genetic algorithm with specified parameters, processes data, and saves results.
-  - **Training.py**: Contains the `train_test` function for training models and evaluating their performance using cross-validation.
-- **data/**: Contains data files used in the project.
-  - **trainGA.csv**: CSV file with training data.
 
 ### Description
 
