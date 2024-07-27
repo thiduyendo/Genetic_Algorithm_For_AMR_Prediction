@@ -7,12 +7,30 @@ This project leverages genetic algorithms (GAs) to select the most important fea
 - Cross-Validation: Employs Stratified K-Fold cross-validation to ensure reliable performance metrics and avoid overfitting.
 - Performance Metrics: Measures model performance using accuracy, precision, recall, F1 score, AUC (Area Under the Curve), and MCC (Matthews Correlation Coefficient).
 ## Project Components
-- Training.py: Contains the train_test function that trains models and evaluates their performance using cross-validation.
-- Genetic_Algorithm.py: Implements the genetic algorithm for feature selection and model optimization.
-- main.py: Runs the genetic algorithm with specified parameters, processes data, and saves results.
-## Data
-- Input Data: SNP (Single Nucleotide Polymorphism) pan-genome and associated antibiotic resistance labels for different antibiotics.
-- Output Data: CSV files containing the results of the genetic algorithm, including performance metrics for each antibiotic.
+.
+├── README.md
+├── .gitignore
+├── requirement.txt
+└── src
+    ├── Genetic_Algorithm.py
+    ├── main.py
+    └── Training.py
+├── data
+│   └── trainGA.csv
+
+### Description
+
+- `data/`: Contains data files used in the project.
+  - `trainGA.csv`: CSV file with training data: SNP (Single Nucleotide Polymorphism) pan-genome and associated antibiotic resistance labels for different antibiotics
+
+- `src/`: Contains the source code for the project.
+  - `Genetic_Algorithm.py`: Implements the genetic algorithm for feature selection and model optimization.
+  - `main.py`: Runs the genetic algorithm with specified parameters, processes data, and saves results.
+  - `Training.py`: Contains the `train_test` function for training models and evaluating their performance using cross-validation.
+
+- `README.md`: This file.
+
+- `requirement.txt`: List of Python package dependencies.
 ## Getting Started
 ### Clone the Repository:
 ```
