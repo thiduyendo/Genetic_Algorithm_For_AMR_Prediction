@@ -49,16 +49,17 @@ def fitness_score(population, model, kfold, X, y):
 	combined_score = np.array(accuracy_list) + np.array(f1_list)
 	weights = combined_score / np.sum(combined_score)
 	sorted_indices = np.argsort(combined_score)[::-1]
+	
 	return (
-	list(np.array(accuracy_list)[sorted_indices]),
+	list(np.array(accuracy_list[sorted_indices])),
 	list(np.array(population)[sorted_indices, :]),
 	list(np.array(precision_list)[sorted_indices]),
 	list(np.array(recall_list)[sorted_indices]),
 	list(np.array(f1_list)[sorted_indices]),	
 	list(np.array(auc_list)[sorted_indices]),
 	list(np.array(mcc_list)[sorted_indices]),
-	weights)
-
+	list(weights[sorted_indices]))
+	
 def selection(pop_after_fit, weights, k):
 	"""
 	Select chromosomes based on fitness weights.
@@ -122,12 +123,11 @@ def generations(size, n_feat, crossover_rate, mutation_rate, max_gen, model, kfo
 	population_nextgen = initialization_of_population(size, n_feat)
 	for gen in range(max_gen):
 		accuracy, pop_after_fit, precision, recall, f1, auc, mcc, weights  = fitness_score(population_nextgen, model, kfold, X, y)
-
 		acc, precision, recall, f1, auc, mcc = accuracy[0], precision[0], recall[0], f1[0], auc[0], mcc[0]
 		len_c = len(np.where(pop_after_fit[0])[0])
 		print('Generation {}: Best Score - acc: {} - F1-score: {} - mcc: {} - len: {}'.format(gen, acc,\
 		f1,mcc,len_c))
-		k = size - 2
+		k = size - 2	
 		pop_after_sel = selection(pop_after_fit, weights, k)
 
 		children = []
