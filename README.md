@@ -7,23 +7,6 @@ This project leverages genetic algorithms (GAs) to select the most important fea
 - Cross-Validation: Employs Stratified K-Fold cross-validation to ensure reliable performance metrics and avoid overfitting.
 - Performance Metrics: Measures model performance using accuracy, precision, recall, F1 score, AUC (Area Under the Curve), and MCC (Matthews Correlation Coefficient).
 ## Project Components
-```
-.
-```
-```
-├── README.md
-```
-```
-├── .gitignore
-```
-├── requirement.txt
-└── src
-    ├── Genetic_Algorithm.py
-    ├── main.py
-    └── Training.py
-├── data
-│   └── trainGA.csv
-
 ### Description
 
 - `data/`: Contains data files used in the project.
