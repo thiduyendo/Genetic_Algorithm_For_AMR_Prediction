@@ -1,0 +1,9 @@
+# Byte-compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Other files
+*.swp
+*.swo
+.DS_Store

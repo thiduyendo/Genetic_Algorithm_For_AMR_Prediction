@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.model_selection import StratifiedKFold, cross_val_predict, ShuffleSplit
 from sklearn.svm import SVC
 from xgboost import XGBClassifier
-from Training import train_test
+from src.Training import train_test
 
 def initialization_of_population(size, n_feat):
 	"""
@@ -38,8 +38,7 @@ def fitness_score(population, model, kfold, X, y):
 	cv = StratifiedKFold(n_splits=kfold, shuffle=True)
 	precision_list, recall_list,f1_list,accuracy_list,auc_list,confusion_matrices,mcc_list = [],[],[],[],[],[],[]
 	for chromosome in population:
-		scores = train_test(model, X, y, kfold)
-
+		scores = train_test(model, X.iloc[:,chromosome], y, kfold)
 		accuracy_list.append(scores['Accuracy'])
 		auc_list.append(scores['AUC'])
 		precision_list.append(scores['Precision'])
@@ -120,8 +119,6 @@ def generations(size, n_feat, crossover_rate, mutation_rate, max_gen, model, kfo
 		tuple: Best chromosomes and their evaluation scores over generations.
 	"""
 	best_chromo, best_acc, best_precision, best_recall, best_f1, best_auc, best_mcc, len_best_chromo = [],[],[],[],[],[],[],[]
-	best_his_f1, best_his_acc, best_his_mcc = [0.0],[0.0],[0.0]
-
 	population_nextgen = initialization_of_population(size, n_feat)
 	for gen in range(max_gen):
 		accuracy, pop_after_fit, precision, recall, f1, auc, mcc, weights  = fitness_score(population_nextgen, model, kfold, X, y)
