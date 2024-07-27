@@ -41,7 +41,7 @@ python main.py --input_file path/to/input.csv --output_file path/to/output.csv
 > - output_file: the result of the model performance
 > - please try the following command line if the suggested command line doesn't work properly:
 >   ```
->   python main.py --input_file path/to/input.csv --output_file path/to/output.csv
+>   python3 main.py --input_file path/to/input.csv --output_file path/to/output.csv
 >   ```
 ### Contributing
 Contributions are welcome! Please follow the guidelines for submitting pull requests and ensure that all tests pass before submitting.
