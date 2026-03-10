@@ -32,7 +32,7 @@ model = SVC(kernel='linear', probability=True)
 
 # ============================== Load Dataset ==============================
 print(f"Running GA for antibiotic: {antibiotic}")
-csv_path = os.path.join(ada_folder, f"ADA_combine_{antibiotic.lower()}1.csv")
+csv_path = os.path.join(ada_folder, f"ADA_combine_{antibiotic.lower()}.csv")
 df = pd.read_csv(csv_path, dtype={'index': str}).set_index('index')
 df.index.name = None
 df.columns = df.columns.str.replace(r'^.*(?=Cluster)', '', regex=True)
@@ -44,7 +44,7 @@ y = df['resistant_phenotype']
 # ============================== Run Genetic Algorithm ==============================
 best_chromo, best_acc, best_precision, best_recall, best_f1, best_auc, best_mcc, len_best_chromo = generations(
     size=50,
-    n_feat=X_encoded.shape[1],
+    n_feat=X.shape[1],
     crossover_rate=0.8,
     mutation_rate=0.5,
     max_gen=gen_number,
