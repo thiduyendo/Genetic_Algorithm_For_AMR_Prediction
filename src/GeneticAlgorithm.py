@@ -4,7 +4,8 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from sklearn.model_selection import StratifiedKFold, cross_val_predict, ShuffleSplit
 from sklearn.svm import SVC
 from xgboost import XGBClassifier
-from Training import train_test
+from parallel_cv import train_test
+
 
 def initialization_of_population(size, n_feat):
 	"""
@@ -23,7 +24,7 @@ def initialization_of_population(size, n_feat):
 		population.append(chromosome)
 	return population
 
-def fitness_score(population, model, kfold, X, y):
+def fitness_score(population, model, kfold, X, y, n_jobs):
 	"""
 	Evaluate the fitness score of the population.
 	Parameters:
@@ -35,10 +36,9 @@ def fitness_score(population, model, kfold, X, y):
 	Returns:
 		tuple: Evaluation scores and sorted population.
 	"""
-	cv = StratifiedKFold(n_splits=kfold, shuffle=True)
 	precision_list, recall_list,f1_list,accuracy_list,auc_list,confusion_matrices,mcc_list = [],[],[],[],[],[],[]
 	for chromosome in population:
-		scores = train_test(model, X.iloc[:,chromosome], y, kfold)
+		scores = train_test(model, X.iloc[:,chromosome], y, kfold, n_jobs)
 		accuracy_list.append(scores['Accuracy'])
 		auc_list.append(scores['AUC'])
 		precision_list.append(scores['Precision'])
@@ -46,9 +46,11 @@ def fitness_score(population, model, kfold, X, y):
 		f1_list.append(scores['F1-score'])
 		mcc_list.append(scores['MCC'])
 
-	combined_score = np.array(accuracy_list) + np.array(f1_list)
-	weights = combined_score / np.sum(combined_score)
-	sorted_indices = np.argsort(combined_score)[::-1]
+	fitness = np.array(accuracy_list) + np.array(f1_list)+ np.array(auc_list)
+	penalized = fitness ** 2
+	weights = penalized / np.sum(penalized)
+	sorted_indices = np.argsort(fitness)[::-1]
+
 	return (
 	list(np.array(accuracy_list)[sorted_indices]),
 	list(np.array(population)[sorted_indices, :]),
@@ -57,8 +59,12 @@ def fitness_score(population, model, kfold, X, y):
 	list(np.array(f1_list)[sorted_indices]),	
 	list(np.array(auc_list)[sorted_indices]),
 	list(np.array(mcc_list)[sorted_indices]),
+	fitness[sorted_indices],
 	weights[sorted_indices])
 
+# ------------------------------------------------------------
+#                         Routllet Selection
+# ------------------------------------------------------------
 def selection(pop_after_fit, weights, k):
 	"""
 	Select chromosomes based on fitness weights.
@@ -72,6 +78,9 @@ def selection(pop_after_fit, weights, k):
 	selected_indices = np.random.choice(len(pop_after_fit), size=k, replace=True, p=weights)
 	return [pop_after_fit[i] for i in selected_indices]
 
+# ------------------------------------------------------------
+#                         Crossover
+# ------------------------------------------------------------
 def crossover(p1, p2, crossover_rate):
 	"""
 	Perform crossover between two parent chromosomes.
@@ -89,6 +98,9 @@ def crossover(p1, p2, crossover_rate):
 		c2 = np.concatenate((p2[:pt], p1[pt:]))
 	return [c1, c2]
 
+# ------------------------------------------------------------
+#                         Mutation
+# ------------------------------------------------------------
 def mutation(chromosome, mutation_rate):
 	"""
 	Mutate a chromosome based on mutation rate.
@@ -102,7 +114,10 @@ def mutation(chromosome, mutation_rate):
 		if random.random() < mutation_rate:
 			chromosome[i] = not chromosome[i]
 
-def generations(size, n_feat, crossover_rate, mutation_rate, max_gen, model, kfold, X, y):
+# ----------------------------------------------------------------------------------------
+#                            Generations / GA main loop
+# ----------------------------------------------------------------------------------------
+def generations(size, n_feat, crossover_rate, mutation_rate, max_gen, model, kfold, X, y, n_jobs):
 	"""
 	Run the genetic algorithm for a specified number of generations.
 	Parameters:
@@ -118,35 +133,81 @@ def generations(size, n_feat, crossover_rate, mutation_rate, max_gen, model, kfo
 	Returns:
 		tuple: Best chromosomes and their evaluation scores over generations.
 	"""
+	# History
 	best_chromo, best_acc, best_precision, best_recall, best_f1, best_auc, best_mcc, len_best_chromo = [],[],[],[],[],[],[],[]
-	population_nextgen = initialization_of_population(size, n_feat)
-	for gen in range(max_gen):
-		accuracy, pop_after_fit, precision, recall, f1, auc, mcc, weights  = fitness_score(population_nextgen, model, kfold, X, y)
 
-		acc, precision, recall, f1, auc, mcc = accuracy[0], precision[0], recall[0], f1[0], auc[0], mcc[0]
-		len_c = len(np.where(pop_after_fit[0])[0])
-		print('Generation {}: Best Score - acc: {} - F1-score: {} - mcc: {} - len: {}'.format(gen, acc,\
-		f1,mcc,len_c))
-		k = size - 2
-		pop_after_sel = selection(pop_after_fit, weights, k)
+	# Initialize population
+	population_nextgen = initialization_of_population(size, n_feat)
+
+	# Initialize persistent elite outside generations loop
+	persistent_elite = []  # list of tuples: (chromosome, fitness)
+	elitism_n = 2
+
+	#GA main loops
+	for gen in range(max_gen):
+		accuracy, pop_sorted, precision, recall, f1, auc, mcc, fitness, weights  = fitness_score(population_nextgen, model, kfold, X, y, n_jobs)
+		
+		# Update persistent elite
+		for i in range(elitism_n):
+			elite_record = {"chromo": pop_sorted[i],
+			"fitness": fitness[i],
+			"accuracy": accuracy[i],
+			"precision": precision[i],
+			"recall": recall[i],
+			"f1": f1[i],
+			"auc": auc[i],
+			"mcc": mcc[i]}
+			# If elite list not full → just add
+			if len(persistent_elite) < elitism_n:
+				persistent_elite.append(elite_record)
+			else:
+				# Replace worst elite if this chromosome is stronger
+				worst_idx = np.argmin([e["fitness"] for e in persistent_elite])
+				if elite_record["fitness"] > persistent_elite[worst_idx]["fitness"]:
+					persistent_elite[worst_idx] = elite_record
+		elite_chromosomes = [e["chromo"] for e in persistent_elite]
+
+		# sort elites by fitness descending	
+		sorted_elites = sorted(persistent_elite, key=lambda x: x["fitness"], reverse=True)
+		best_elite = sorted_elites[0]
+		len_c = len(np.where(best_elite["chromo"])[0])
+	
+		# Record best chromosome info		
+		best_chromo.append(best_elite["chromo"])
+		best_acc.append(best_elite["accuracy"])
+		best_precision.append(best_elite["precision"])
+		best_recall.append(best_elite["recall"])
+		best_f1.append(best_elite["f1"])
+		best_auc.append(best_elite["auc"])
+		best_mcc.append(best_elite["mcc"])
+		len_best_chromo.append(len(np.where(best_elite["chromo"] == 1)[0]))		
+
+		print('Generation {}: Best Score - AUC: {} - Accuracy: {} - F1-score: {} - MCC: {} - Length: {}'.format(gen,best_elite["auc"],\
+                best_elite["accuracy"],best_elite["f1"], best_elite["mcc"],len_c))
+
+		# ------------------------------------------------------------
+		#                           Selection
+		# ------------------------------------------------------------
+		elitism_n = 2   # keep best 2
+		k_select = size - elitism_n
+		pop_after_sel = selection(pop_sorted, weights, size)
+
+		# ------------------------------------------------------------
+		#                     Crossover + Mutation
+		# ------------------------------------------------------------
 
 		children = []
-		for i in range(0, len(pop_after_sel), 2):
+		num_pairs = k_select
+		for i in range(0, num_pairs, 2):
 			p1, p2 = pop_after_sel[i], pop_after_sel[i+1]
 			for c in crossover(p1, p2, crossover_rate):
 				mutation(c, mutation_rate)
 				children.append(c)
-		pop_after_mutated = children
-		population_nextgen = pop_after_fit[:2] + pop_after_mutated
+	
+		# ------------------------------------------------------------
+		#                    Form next generation
+		# ------------------------------------------------------------
+		population_nextgen = elite_chromosomes + children
 
-		best_chromo.append(pop_after_fit[0])
-		best_acc.append(acc)
-		best_precision.append(precision)
-		best_recall.append(recall)
-		best_f1.append(f1)
-		best_auc.append(auc)
-		best_mcc.append(mcc)
-		len_best_chromo.append(len_c)
-	    
 	return best_chromo, best_acc,best_precision, best_recall, best_f1, best_auc, best_mcc, len_best_chromo
 

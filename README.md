@@ -1,4 +1,4 @@
-# Genetic_Algorithm_For_AMR_Prediction
+# Genetic Algorithm (GA_SVM) For AMR Prediction
 ## Project Overview
 This project leverages genetic algorithms (GAs) to select the most important features for predicting antibiotic resistance in *Pseudomonas aeruginosa*. By combining advanced machine learning techniques with evolutionary algorithms, this project aims to enhance the accuracy and effectiveness of resistance predictions, potentially leading to more effective treatments and interventions.
 ## Key Features
@@ -7,15 +7,25 @@ This project leverages genetic algorithms (GAs) to select the most important fea
 - Cross-Validation: Employs Stratified K-Fold cross-validation to ensure reliable performance metrics and avoid overfitting.
 - Performance Metrics: Measures model performance using accuracy, precision, recall, F1 score, AUC (Area Under the Curve), and MCC (Matthews Correlation Coefficient).
 ## Project Components
+.
+├── data
+│   └── combine
+│       ├── ADA_combine_imipenem.csv
+│       └── ADA_combine_tobramycin.csv
+├── README.md
+├── requirement.txt
+└── src
+    ├── GeneticAlgorithm.py
+    ├── parallel_cv.py
+    └── run_GA.py
 ### Description
 
-- `data/`: Contains data files used in the project.
-  - `trainGA.csv`: CSV file with training data: SNP (Single Nucleotide Polymorphism) pan-genome and associated antibiotic resistance labels for different antibiotics
-
+- `data/combine`: Contains combined pan-genome datasets for each antibiotic.
+  - `ADA_combine_{antibiotic}.csv`: CSV file with features (SNPs and clusters) and antibiotic resistance labels. 
 - `src/`: Contains the source code for the project.
-  - `Genetic_Algorithm.py`: Implements the genetic algorithm for feature selection and model optimization.
-  - `main.py`: Runs the genetic algorithm with specified parameters, processes data, and saves results.
-  - `Training.py`: Contains the `train_test` function for training models and evaluating their performance using cross-validation.
+  - `GeneticAlgorithm.py`: Implements the genetic algorithm for feature selection and model optimization.
+  - `run_GA.py`: Runs the genetic algorithm with specified parameters, processes data, and saves results.
+  - `parallel_cv.py`: Contains the `train_test` function for training models and evaluating their performance using cross-validation.
 
 - `README.md`: This file.
 
@@ -31,14 +41,21 @@ Ensure that you have all necessary Python libraries listed in requirement.txt in
 pip install -r requirement.txt
 ```
 ### Run the Project:
-Execute main.py to start the genetic algorithm process and generate results:
+Execute run_GA.py to start the genetic algorithm process and generate results:
 ```
-cd src/
-python main.py --input_file path/to/input.csv --output_file path/to/output.csv
+cd Genetic_Algorithm_For_AMR_Prediction/src/
+python run_GA.py -antibiotic tobramycin -gen_number 50 -outdir GA_results
 ```
 > **Note:**
-> - input_file: trainGA.csv
-> - output_file: the result of the model performance
+> - outdir: The output will contain something like this:
+data/combine/GA_results/
+├── feature_set/
+│   ├── tobramycin_fs_0.csv
+│   ├── tobramycin_fs_1.csv
+│   ├── tobramycin_fs_2.csv
+│   └── ...            # one CSV for each generation (best chromosome)
+└── tobramycin_training_genresults.csv
+The final generation is the final feature set of GA-SVM, and the training results (tobramycin_training_genresults.csv) contain the training results of GA-SVM for each generation.
 > - please try the following command line if the suggested command line doesn't work properly:
 >   ```
 >   python3 main.py --input_file path/to/input.csv --output_file path/to/output.csv
