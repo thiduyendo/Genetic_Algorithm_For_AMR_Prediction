@@ -19,6 +19,7 @@ This project leverages genetic algorithms (GAs) to select the most important fea
     ├── GeneticAlgorithm.py
     ├── parallel_cv.py
     └── run_GA.py
+```
 ### Description
 
 - `data/combine`: Contains combined pan-genome datasets for each antibiotic.
