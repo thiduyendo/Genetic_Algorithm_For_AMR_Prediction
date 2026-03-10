@@ -50,6 +50,7 @@ python run_GA.py -antibiotic tobramycin -gen_number 50 -outdir GA_results
 ```
 > **Note:**
 > - outdir: The output will contain something like this:
+```text
 data/combine/GA_results/
 ├── feature_set/
 │   ├── tobramycin_fs_0.csv
@@ -57,6 +58,7 @@ data/combine/GA_results/
 │   ├── tobramycin_fs_2.csv
 │   └── ...            # one CSV for each generation (best chromosome)
 └── tobramycin_training_genresults.csv
+```
 The final generation is the final feature set of GA-SVM, and the training results (tobramycin_training_genresults.csv) contain the training results of GA-SVM for each generation.
 > - please try the following command line if the suggested command line doesn't work properly:
 >   ```
