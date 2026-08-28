@@ -6,7 +6,7 @@ type: software
 authors:
   - family-names: "Do"
     given-names: "Thi Duyen"
-
+    orcid: "https://orcid.org/0000-0001-7361-292X"
 repository-code: "https://github.com/thiduyendo/Genetic_Algorithm_For_AMR_Prediction"
 
 abstract: >
