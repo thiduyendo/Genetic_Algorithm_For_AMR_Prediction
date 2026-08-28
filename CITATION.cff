@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: "Genetic Algorithm-Based Feature Selection for Antimicrobial Resistance Prediction"
+message: "If you use this software, please cite it using the following metadata."
+type: software
+
+authors:
+  - family-names: "Do"
+    given-names: "Thi Duyen"
+
+repository-code: "https://github.com/thiduyendo/Genetic_Algorithm_For_AMR_Prediction"
+
+abstract: >
+  A genetic algorithm-based machine learning pipeline for feature
+  selection and antimicrobial resistance prediction in
+  Pseudomonas aeruginosa.
+
+keywords:
+  - antimicrobial resistance
+  - AMR
+  - Pseudomonas aeruginosa
+  - genetic algorithm
+  - feature selection
+  - machine learning
+  - support vector machine
+  - XGBoost
+
+license: MIT

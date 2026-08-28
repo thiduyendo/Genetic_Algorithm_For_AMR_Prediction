@@ -7,3 +7,8 @@ __pycache__/
 *.swp
 *.swo
 .DS_Store
+.ipynb_checkpoints/
+results/
+outputs/
+*.log
+*.tmp
